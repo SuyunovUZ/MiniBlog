@@ -12,7 +12,7 @@ def home_page(request):
 def article_page(request):
     posts = Article.objects.all().order_by('-id')
     context = {'posts': posts}
-    return render(request, 'index-2.html', context)
+    return render(request, 'category.html', context)
 
 
 def article_detail_page(request, pk):
@@ -32,4 +32,4 @@ def article_detail_page(request, pk):
 def about_page(request):
     posts = Article.objects.all().order_by('-id')
     context = {'posts': posts}
-    return render(request, 'category.html', context)
+    return render(request, 'single.html', context)

@@ -1,15 +1,14 @@
-from django.db import models, migrations
-import django.db
+from django.db import models
 
 
 class Author(models.Model):
     name = models.CharField(max_length=212)
     image = models.ImageField(upload_to='author', blank=True, null=True)
     description = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.description
+        return self.name
 
 
 class Tag(models.Model):
@@ -22,9 +21,9 @@ class Tag(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=212)
-    image = models.ImageField(upload_to='author', blank=True, null=True)
+    image = models.ImageField(upload_to='Author', blank=True, null=True)
     description = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
 
@@ -38,7 +37,7 @@ class Comment(models.Model):
     email = models.EmailField(null=True, blank=True)
     website = models.TextField()
     message = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -51,18 +50,4 @@ class About(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.description
-
-
-class Migration(migrations.Migration):
-    dependencies = [
-        ('blog', '0008_alter_article_image'),
-    ]
-
-    operations = [
-        migrations.AlterField(
-            model_name='comment',
-            name='post',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='blog.author'),
-        ),
-    ]
+        return self.title

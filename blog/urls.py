@@ -7,6 +7,4 @@ urlpatterns = [
     path('article/<int:pk>/', article_detail_page, name='detail'),
     path('about/', about_page, name='about')
 
-
-
 ]

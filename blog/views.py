@@ -4,19 +4,19 @@ from .form import CommentForm, Comment
 
 
 def home_page(request):
-    articles = Article.objects.all().order_by('id')
+    articles = Article.objects.all().order_by('id')[:5]
     context = {'posts': articles}
     return render(request, 'index.html', context)
 
 
 def article_page(request):
-    posts = Article.objects.all().order_by('-id')
+    posts = Article2.objects.all().order_by('-id')[:7]
     context = {'posts': posts}
     return render(request, 'category.html', context)
 
 
 def article_detail_page(request, pk):
-    comment = Comment.objects.all()
+    comment = Comment.objects.all()[:5]
     post = get_object_or_404(Article, pk=pk)
     if request.method == 'POST':
         form = CommentForm(request.POST, request.FILES)
@@ -30,6 +30,6 @@ def article_detail_page(request, pk):
 
 
 def about_page(request):
-    posts = Article.objects.all().order_by('-id')
+    posts = Article.objects.all().order_by('-id')[:7]
     context = {'posts': posts}
     return render(request, 'single.html', context)
